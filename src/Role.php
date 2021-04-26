@@ -13,7 +13,7 @@ class Role extends Model
         'name',
         'permissions',
     ];
-
+    
     protected $appends = [
         'permissions',
     ];
@@ -25,13 +25,18 @@ class Role extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-
-        $this->setTable(config('nova-permissions.table_names.roles', 'roles'));
+        $this->setTable('tx.'.config('nova-permissions.table_names.roles', 'roles'));
+        $this->setConnection(config('nova-permissions.connection_table.role_user', config('database.default')));
     }
 
     public function users()
     {
-        return $this->belongsToMany(config('nova-permissions.user_model', 'App\Models\User'), config('nova-permissions.table_names.role_user', 'role_user'), 'role_id', 'user_id');
+        return $this->belongsToMany(
+            config('nova-permissions.user_model', 'App\Models\User'),
+            config('nova-permissions.connection_table.role_user', config('database.default')).'.'.config('nova-permissions.table_names.role_user', 'role_user'),
+            'role_id',
+            'user_id'
+        );
     }
 
     public function getPermissions()
@@ -103,7 +108,7 @@ class Role extends Model
      */
     public function revoke($permission)
     {
-        if (\is_string($permission)) {           
+        if (\is_string($permission)) {
             Permission::findOrFail($permission)->delete();
             
             $this->setRelations([]);

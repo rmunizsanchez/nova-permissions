@@ -55,8 +55,8 @@ class Role extends Resource
 
             Slug::make(__('Slug'), 'slug')
                 ->rules('required')
-                ->creationRules('unique:' . config('nova-permissions.table_names.roles', 'roles'))
-                ->updateRules('unique:' . config('nova-permissions.table_names.roles', 'roles') . ',slug,{{resourceId}}')
+                ->creationRules('unique:'.config('nova-permissions.connection_table.roles', config('database.default')).'.' . config('nova-permissions.table_names.roles', 'roles'))
+                ->updateRules('unique:'.config('nova-permissions.connection_table.roles', config('database.default')).'.' . config('nova-permissions.table_names.roles', 'roles') . ',slug,{{resourceId}}')
                 ->sortable(),
 
             Checkboxes::make(__('Permissions'), 'permissions')

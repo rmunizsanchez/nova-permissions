@@ -33,17 +33,28 @@ return [
     | table should be used to retrieve your roles. We have chosen a basic
     | default value but you may easily change it to any table you like.
     */
-
     'table_names' => [
         'roles' => 'roles',
-
         'role_permission' => 'role_permission',
-
         'role_user' => 'role_user',
-        
         'users' => 'users',
     ],
-
+    
+    /*
+       |--------------------------------------------------------------------------
+       | Database connection
+       |--------------------------------------------------------------------------
+       | When using the "HasRoles" trait from this package, we need to know which
+       | connection should be used to retrieve your roles. Default value is the
+       | value is the default connection in the database
+   */
+    
+    /*'connection_table' => [
+        'roles' => 'default',
+        'role_permission' => 'default',
+        'role_user' => 'default',
+    ],*/
+    
     /*
     |--------------------------------------------------------------------------
     | Application Permissions
