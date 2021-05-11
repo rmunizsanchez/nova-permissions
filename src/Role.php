@@ -25,7 +25,7 @@ class Role extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->setTable('tx.'.config('nova-permissions.table_names.roles', 'roles'));
+        $this->setTable(config('nova-permissions.table_names.roles', 'roles'));
         $this->setConnection(config('nova-permissions.connection_table.role_user', config('database.default')));
     }
 
